@@ -13,6 +13,7 @@ from download_video import DownloadVideo
 from unlimitedui import Ui_Unlimited
 from Imgur_Uploader import Imgur_Uploader
 from docs_backend import Backend
+from download_mp3 import downloadMP3
 
 class UnlimitedUi(QWidget, Ui_Unlimited):
     def __init__(self):
@@ -55,6 +56,8 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
             if filename[-3:] == 'mp4':
                 dv = DownloadVideo(self.filenameToLink[filename])
                 dv.downloadVideo()
+            elif filename[-3:] == 'mp3':
+                downloadMP3(self.filenameToLink[filename])
             else:
                 self.imgur_uploader.download_image(self.filenameToLink[filename], filename)
 
