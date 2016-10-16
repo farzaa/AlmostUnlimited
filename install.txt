@@ -3,5 +3,7 @@ Enter the name of all dependencies here.
 pip install pytube
 
 GUI dependencies. There may be more
+======================================
 brew install pyside
 brew install qt4
+pip install qdarkstyle

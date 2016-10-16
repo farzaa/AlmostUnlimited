@@ -1,4 +1,5 @@
 import sys
+import qdarkstyle
 
 from PySide import QtGui, QtCore
 from PySide.QtGui import QFileDialog, QWidget, QMessageBox
@@ -69,6 +70,7 @@ def outputMenu():
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet())
     unlimited_ui = UnlimitedUi()
     sys.exit(app.exec_())
 
