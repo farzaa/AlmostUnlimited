@@ -1,6 +1,7 @@
 from user_input import requestUserData
 from FileController import FileController
 from YouTubeUploader import upload
+from download_video import DownloadVideo
 
 def main():
     print 'Hello, world!'
@@ -13,6 +14,8 @@ def outputMenu():
 
  
 if __name__ == '__main__':
+    dlvid = DownloadVideo('https://www.youtube.com/watch?v=fyBO3PTiZXc')
+    dlvid.downloadVideo()
     quitMenu = False
     outputMenu()
     input = raw_input('INPUT HERE:\n')

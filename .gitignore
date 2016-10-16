@@ -1,3 +1,4 @@
 # Ignore cached python scripts
 *.pyc
 *.py-oauth2.json
+*.mp4
