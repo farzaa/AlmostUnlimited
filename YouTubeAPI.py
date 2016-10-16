@@ -135,6 +135,7 @@ def resumable_upload(insert_request, filename):
       if 'id' in response:
         print "Video id '%s' was successfully uploaded." % response['id']
         f = FileController()
+        f.process_json()
         f.write_link(filename ,response['id'])
       else:
         exit("The upload failed with an unexpected response: %s" % response)
