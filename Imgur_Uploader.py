@@ -1,5 +1,6 @@
 from imgurpython import ImgurClient
 import urllib
+import uuid
 
 class Imgur_Uploader(object):
     def __init__(self):
@@ -14,4 +15,6 @@ class Imgur_Uploader(object):
     def download_image(self, image_id, name):
         image = self.client.get_image(image_id)
         image_link = image.link
-        urllib.urlretrieve(image_link, "IMGURDownloads/" + name)
+        uid = uuid.uuid1().urn
+        urllib.urlretrieve(image_link, "IMGURDownloads/" + name[:-4] + uid[9:] + name[-4:])
+        
