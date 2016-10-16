@@ -1,4 +1,6 @@
-from user_input import UserInput
+from user_input import requestUserData
+from FileController import FileController
+from YouTubeUploader import upload
 
 def main():
     print 'Hello, world!'
@@ -21,7 +23,7 @@ if __name__ == '__main__':
         if input in 'UP':
             #Run API upload methods 
             print('Upload Tool...\n')	
-
+            upload(requestUserData())
         if input in 'DOWN':
             #Run download 
             print('Download Tool...\n')

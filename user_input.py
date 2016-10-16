@@ -1,6 +1,4 @@
-class UserInput:
-
-    def requestUserData(self):
+def requestUserData():
         fileName = raw_input('Enter your video file name to upload\n')
         title = raw_input('Enter a title for this file\n')
         description = raw_input('Enter a description for this video\n')
