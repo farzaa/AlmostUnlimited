@@ -1,6 +1,7 @@
 import sys
 import qdarkstyle
 import json
+import os
 
 from PySide import QtGui, QtCore
 from PySide.QtGui import QFileDialog, QWidget, QMessageBox
@@ -93,6 +94,16 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         if not (fileName and description and title):
             return
         
+        file_type = 'Video'
+        smallName = fileName.split('/')[-1]
+
+        if fileName[-3:] == 'mp3':
+            vFileName = smallName[:-3] + 'avi'
+            os.system('ffmpeg -loop 1 -r 1 -i pic.jpg -i ' + fileName + ' -c:a copy -shortest ' + vFileName)
+            fileName = vFileName
+            file_type = 'Audio'
+
+        
         category = '22'
         keywords = 'empty'
         privacyStatus = 'unlisted'
@@ -108,10 +119,9 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         msgBox.setDefaultButton(QMessageBox.Ok)
         ret = msgBox.exec_()
 
-        smallName = fileName.split('/')[-1]
         self.uploaded_combo.addItem(smallName)
         self.filenameToLink[smallName] =  r'https://www.youtube.com/watch?v=' + videoUrl
-        self.backend.addToDB('Video', smallName, r'https://www.youtube.com/watch?v=' + videoUrl, self.backend_service)
+        self.backend.addToDB(file_type, smallName, r'https://www.youtube.com/watch?v=' + videoUrl, self.backend_service)
         # Upload link and filename to the google doc
 
     def browse_file(self):
@@ -120,7 +130,7 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         """
         
         fname, _ = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-                    '~/', 'Media Files (*.mp4 *.png *.jpg)')
+                    '~/', 'Media Files (*.mp4 *.png *.jpg *.mp3)')
         self.filename_text.insert(fname)
         
 
