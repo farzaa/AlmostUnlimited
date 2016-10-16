@@ -9,7 +9,8 @@ def upload(fileArgs):
                        --category="22"
                        --privacyStatus="private"
     """
-    
+
     os.system('python YouTubeAPI.py ' + '--file="' + fileArgs['fileName'] + \
+              '" --title="' + fileArgs['title'] + \
               '" --description="' + fileArgs['description'] + '" --keywords="' + \
               fileArgs['keywords'] + '" --category="22" --privacyStatus="unlisted"')
