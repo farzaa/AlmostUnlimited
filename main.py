@@ -14,8 +14,9 @@ def outputMenu():
 if __name__ == '__main__':
     quitMenu = False
     outputMenu()
-    #input = raw_input('INPUT HERE:\n')
-    #print(input)
+    file_controller = FileController()
+    file_controller.process_json()
+
     while(not quitMenu):
         input = raw_input('INPUT HERE:\n')
 
@@ -27,7 +28,18 @@ if __name__ == '__main__':
         elif input in 'DOWN':
             #Run download 
             print('Download Tool...\n')
+            file_controller.print_uploads()                    
+            
+            video_name = raw_input('Enter desired video:')
+            link = file_controller.return_link(video_name)
 
+            if link:
+                # The link is valid
+                # Call the download code
+                pass
+            else:
+                print 'Invalid video, cannot download'
+                
         elif input in 'QUIT': 
         	quitMenu = True
         	
