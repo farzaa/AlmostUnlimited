@@ -14,8 +14,6 @@ def outputMenu():
     print 'Type CLEAR to clear saved videos\n'
 
 if __name__ == '__main__':
-    dlvid = DownloadVideo('https://www.youtube.com/watch?v=fyBO3PTiZXc')
-    dlvid.downloadVideo()
     quitMenu = False
     outputMenu()
     file_controller = FileController()
@@ -32,6 +30,9 @@ if __name__ == '__main__':
         elif input in 'DOWN':
             #Run download 
             print('Download Tool...\n')
+            #Whenever the backend is ready:
+            #dlvid = DownloadVideo('https://www.youtube.com/watch?v=fyBO3PTiZXc')
+            #dlvid.downloadVideo()
             file_controller.print_uploads()                    
             
             video_name = raw_input('Enter desired video:')
