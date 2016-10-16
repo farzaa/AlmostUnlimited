@@ -1,6 +1,7 @@
 from __future__ import print_function
 import httplib2
 import os
+import json 
 
 from apiclient import discovery
 from oauth2client import client
@@ -34,19 +35,26 @@ class Backend:
             ]
         }).execute()
 
-    #Given a filename and fileID, this will return.....
-    #INCOMPLETE
-    def readFromDB(self, filename, fileID):
+    #Given a filename and fileID, this will return a JSON.
+    #IMPORTANT: Duplicate keys WILL be overwritten. They shouldn't happen anyways since we have a UUID.
+    def readFromDB(self, service):
         spreadsheetId = '10GBcsGi5RpmhJm323o5c9EPUj8U52voO3vFP9G01Gco'
         rangeName = 'Backend!A2:C'
 
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheetId, range=rangeName).execute()
 
+        return_json = {}
         values = result.get('values', [])
         if not values:
             print('No data found.')     
-               
+        else:
+            for row in values:
+                return_json[row[1]] = row[2]
+        json_data = json.dumps(return_json);
+        print(json_data)
+
+
 
     def printDB(self, service):
 
