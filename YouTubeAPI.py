@@ -13,6 +13,7 @@ from apiclient.http import MediaFileUpload
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
+from FileController import FileController
 
 # Explicitly tell the underlying HTTP transport library not to retry, since
 # we are handling retry logic ourselves.
@@ -119,11 +120,11 @@ def initialize_upload(youtube, options):
     media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
   )
 
-  resumable_upload(insert_request)
+  resumable_upload(insert_request, options.file)
 
 # This method implements an exponential backoff strategy to resume a
 # failed upload.
-def resumable_upload(insert_request):
+def resumable_upload(insert_request, filename):
   response = None
   error = None
   retry = 0
@@ -133,6 +134,9 @@ def resumable_upload(insert_request):
       status, response = insert_request.next_chunk()
       if 'id' in response:
         print "Video id '%s' was successfully uploaded." % response['id']
+        f = FileController()
+        f.process_json()
+        f.write_link(filename ,response['id'])
       else:
         exit("The upload failed with an unexpected response: %s" % response)
     except HttpError, e:
