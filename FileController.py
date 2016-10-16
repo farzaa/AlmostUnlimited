@@ -2,9 +2,10 @@ import json
 import os
 
 class FileController:
+    links = {}
     def __init__(self):
         self.filename = 'links.json'
-        self.links = {}
+        FileController.links = FileController.links
 
     def process_json(self):
         """
@@ -12,17 +13,18 @@ class FileController:
         """
         if os.path.isfile(self.filename):
             links_file = open(self.filename).read()
-            self.links = json.loads(links_file)
+            FileController.links = json.loads(links_file)
         else:
             open(self.filename, 'w')
-            self.links = {}
+            FileController.links = {}
 
     def print_uploads(self):
         """
         Prints each video title that has been uploaded 
         """
+        self.process_json()
         print 'Uploaded videos:'
-        for title in self.links:
+        for title in FileController.links:
             print title
 
     def return_link(self, title):
@@ -32,8 +34,8 @@ class FileController:
         Args:
             title: a string that represents the desired video title
         """
-        if title in self.links:
-            return 'https://www.youtube.com/watch?' + self.links[title]
+        if title in FileController.links:
+            return 'https://www.youtube.com/watch?' + FileController.links[title]
         return None
 
     def write_link(self, name, link):
@@ -45,10 +47,12 @@ class FileController:
             name: A string representing the file name
             link: A string representing the youtube link
         """
-        self.links[name] = link
+        print FileController.links
+        print name
+        FileController.links[name] = link
         with open(self.filename, 'w') as fp:
-            json.dump(self.links, fp)
-        
+            json.dump(FileController.links, fp)
+
     def remove_link(self, title):
         """
         Removes the specified video from the json file and dict
@@ -56,8 +60,8 @@ class FileController:
         Args:
             title: The title string
         """
-        if title in self.links:
-            del self.links[title]
+        if title in FileController.links:
+            del FileController.links[title]
             print 'Removed ' + title
         else:
             print title + ' not found'
@@ -66,7 +70,7 @@ class FileController:
         """
         Clears everything in the json and dict
         """
-        self.links = {}
+        FileController.links = {}
         with open(self.filename, 'w') as fp:
-            json.dump(self.links, fp)
+            json.dump(FileController.links, fp)
     
