@@ -14,6 +14,7 @@ class FileController:
             links_file = open(self.filename).read()
             self.links = json.loads(links_file)
         else:
+            open(self.filename, 'w')
             self.links = {}
 
     def print_uploads(self):
@@ -48,4 +49,24 @@ class FileController:
         with open(self.filename, 'w') as fp:
             json.dump(self.links, fp)
         
+    def remove_link(self, title):
+        """
+        Removes the specified video from the json file and dict
+
+        Args:
+            title: The title string
+        """
+        if title in self.links:
+            del self.links[title]
+            print 'Removed ' + title
+        else:
+            print title + ' not found'
+
+    def clear_links(self):
+        """
+        Clears everything in the json and dict
+        """
+        self.links = {}
+        with open(self.filename, 'w') as fp:
+            json.dump(self.links, fp)
     
