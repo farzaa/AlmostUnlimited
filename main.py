@@ -9,6 +9,7 @@ from FileController import FileController
 from YouTubeUploader import upload
 from download_video import DownloadVideo
 from unlimitedui import Ui_Unlimited
+from Imgur_Uploader import Imgur_Uploader
 
 class UnlimitedUi(QWidget, Ui_Unlimited):
     def __init__(self):
@@ -24,6 +25,7 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         self.show()
 
         self.filenameToLink = dict()
+        self.imgur_uploader = Imgur_Uploader()    
 
     def get_uploads(self):
         """
@@ -38,8 +40,12 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
     def download_file(self):
         filename = self.uploaded_combo.currentText()
         if filename in self.filenameToLink:
-            dv = DownloadVideo(self.filenameToLink[filename])
-            dv.downloadVideo()
+            if filename[-3:] == 'mp4':
+                dv = DownloadVideo(self.filenameToLink[filename])
+                dv.downloadVideo()
+            else:
+                self.imgur_uploader.download_image(self.filenameToLink[filename], filename)
+
             msgBox = QMessageBox()
             msgBox.setText("File downloaded.")
             msgBox.setStandardButtons(QMessageBox.Ok)
@@ -56,9 +62,18 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         description = self.description_text.text()
         title = self.title_text.text()
 
-        if not (fileName and description and title):
+        if fileName[-3:] == 'png' or fileName[-3:] == 'jpg':
+            smallName = fileName.split('/')[-1]
+            self.uploaded_combo.addItem(smallName)
+
+            result = self.imgur_uploader.upload_image(fileName)
+            self.filenameToLink[smallName] = result['id']
+            print 'Image upload: ', result
             return
 
+        if not (fileName and description and title):
+            return
+        
         category = '22'
         keywords = 'empty'
         privacyStatus = 'unlisted'
@@ -84,9 +99,9 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         """
         Opens file browser to select video file
         """
-        print 'pressed'
+        
         fname, _ = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-                    '~/', 'Video Files (*.mp4)')
+                    '~/', 'Media Files (*.mp4 *.png *.jpg)')
         self.filename_text.insert(fname)
         
 
