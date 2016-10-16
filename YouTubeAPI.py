@@ -42,7 +42,7 @@ RETRIABLE_STATUS_CODES = [500, 502, 503, 504]
 #   https://developers.google.com/youtube/v3/guides/authentication
 # For more information about the client_secrets.json file format, see:
 #   https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
-CLIENT_SECRETS_FILE = "client_secrets.json"
+CLIENT_SECRETS_FILE = "client_secrets_youtube.json"
 
 # This OAuth 2.0 access scope allows an application to upload files to the
 # authenticated user's YouTube channel, but doesn't allow other types of access.
@@ -120,7 +120,7 @@ def initialize_upload(youtube, options):
     media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
   )
 
-  resumable_upload(insert_request, options.file)
+  return resumable_upload(insert_request, options.file)
 
 # This method implements an exponential backoff strategy to resume a
 # failed upload.
@@ -130,13 +130,15 @@ def resumable_upload(insert_request, filename):
   retry = 0
   while response is None:
     try:
-      print "Uploading file..."
+      #print "Uploading file..."
       status, response = insert_request.next_chunk()
       if 'id' in response:
-        print "Video id '%s' was successfully uploaded." % response['id']
+        #print "Video id '%s' was successfully uploaded." % response['id']
+        print response['id']
         f = FileController()
         f.process_json()
         f.write_link(filename ,response['id'])
+        return response['id']
       else:
         exit("The upload failed with an unexpected response: %s" % response)
     except HttpError, e:

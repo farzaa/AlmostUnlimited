@@ -7,7 +7,8 @@ class DownloadVideo:
         self.ytLink = ytLink
 
     def downloadVideo(self):
-        yt = YouTube(self.ytLink)
+        print 'ytlink: ', self.ytLink
+        yt = YouTube(url=self.ytLink)
         #TO DO Hardcoding video specs for now
         video = yt.get('mp4', '720p')
         uid = uuid.uuid1().urn
@@ -16,8 +17,4 @@ class DownloadVideo:
         video.download('YTDownloads/')
         print('Done downloading... ' + yt.filename + '\n')
 
-
-
-
-
-    
+        return yt.filename

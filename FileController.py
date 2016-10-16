@@ -47,8 +47,6 @@ class FileController:
             name: A string representing the file name
             link: A string representing the youtube link
         """
-        print FileController.links
-        print name
         FileController.links[name] = link
         with open(self.filename, 'w') as fp:
             json.dump(FileController.links, fp)
