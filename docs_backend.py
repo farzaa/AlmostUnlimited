@@ -119,4 +119,3 @@ class Backend:
         service = discovery.build('sheets', 'v4', http=http,
                                   discoveryServiceUrl=discoveryUrl)
         return service 
-
