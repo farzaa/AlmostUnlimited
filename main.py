@@ -10,6 +10,7 @@ def outputMenu():
     print("Type UP to upload a new video\n")
     print("Type DOWN to download a video that has already been uploaded to our cloud\n")
     print("Type QUIT to quit\n")
+    print 'Type CLEAR to clear saved videos\n'
 
 if __name__ == '__main__':
     quitMenu = False
@@ -39,10 +40,13 @@ if __name__ == '__main__':
                 pass
             else:
                 print 'Invalid video, cannot download'
-                
+
         elif input in 'QUIT': 
         	quitMenu = True
         	
+        elif input in 'CLEAR':
+            file_controller.clear_links()
+
     outputMenu()
 
 
