@@ -3,6 +3,4 @@
 Video files are uploaded to YouTube through the YouTube API. YouTube offers
 almost unlimited storage (625 videos per day).
 
-1. This is the first thing
-2. The second thing
-3. Another cool thing
+1. sudo pip install google-api-python-client
