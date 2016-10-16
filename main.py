@@ -20,7 +20,32 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         
         self.browse_button.clicked.connect(self.browse_file)
         self.upload_button.clicked.connect(self.upload_file)
+        self.download_button.clicked.connect(self.download_file)
         self.show()
+
+        self.filenameToLink = dict()
+
+    def get_uploads(self):
+        """
+        Takes all of the data from the google docs sheet to populate
+        the combo box
+        """
+        # Replace this line with an actual function call when it is implemented
+        self.filenameToLink = SomeFunctionThatReturnsDictOfFilesAndLinks()
+        # Add the filenames to the combobox
+        self.uploaded_combo.addItems(self.filenameToLink.keys())
+
+    def download_file(self):
+        filename = self.uploaded_combo.currentText()
+        if filename in self.filenameToLink:
+            dv = DownloadVideo(self.filenameToLink[filename])
+            dv.downloadVideo()
+            msgBox = QMessageBox()
+            msgBox.setText("File downloaded.")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.setDefaultButton(QMessageBox.Ok)
+            ret = msgBox.exec_()
+        
 
     def upload_file(self):
         """
@@ -41,12 +66,19 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         args = {'fileName': fileName, 'title': title, 'description': description, 'category:': category,
             'keywords': keywords, 'privacyStatus': privacyStatus}
         
-        upload(args)
+        videoUrl = upload(args)
+
         msgBox = QMessageBox()
         msgBox.setText("File uploaded.")
         msgBox.setStandardButtons(QMessageBox.Ok)
         msgBox.setDefaultButton(QMessageBox.Ok)
         ret = msgBox.exec_()
+
+        smallName = fileName.split('/')[-1]
+        self.uploaded_combo.addItem(smallName)
+        self.filenameToLink[smallName] =  r'https://www.youtube.com/watch?v=' + videoUrl
+
+        # Upload link and filename to the google doc
 
     def browse_file(self):
         """
