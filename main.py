@@ -1,6 +1,7 @@
 from user_input import requestUserData
 from FileController import FileController
 from YouTubeUploader import upload
+from download_video import DownloadVideo
 
 def main():
     print 'Hello, world!'
@@ -29,6 +30,9 @@ if __name__ == '__main__':
         elif input in 'DOWN':
             #Run download 
             print('Download Tool...\n')
+            #Whenever the backend is ready:
+            #dlvid = DownloadVideo('https://www.youtube.com/watch?v=fyBO3PTiZXc')
+            #dlvid.downloadVideo()
             file_controller.print_uploads()                    
             
             video_name = raw_input('Enter desired video:')
