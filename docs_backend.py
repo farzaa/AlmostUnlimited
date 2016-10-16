@@ -74,7 +74,7 @@ def main():
     {
     	"values":[
     	[
-    		"S", "S", "S"]
+    		"R", "R", "R"]
     	]
     }).execute()
 

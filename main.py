@@ -38,6 +38,10 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         self.uploaded_combo.addItems(self.filenameToLink.keys())
 
     def download_file(self):
+        """
+        Takes whatever text the combobox is showing. Either uses the imgur or youtube
+        download methods depending on the file extension
+        """
         filename = self.uploaded_combo.currentText()
         if filename in self.filenameToLink:
             if filename[-3:] == 'mp4':
