@@ -1,5 +1,6 @@
 import sys
 import qdarkstyle
+import json
 
 from PySide import QtGui, QtCore
 from PySide.QtGui import QFileDialog, QWidget, QMessageBox
@@ -10,6 +11,7 @@ from YouTubeUploader import upload
 from download_video import DownloadVideo
 from unlimitedui import Ui_Unlimited
 from Imgur_Uploader import Imgur_Uploader
+from docs_backend import Backend
 
 class UnlimitedUi(QWidget, Ui_Unlimited):
     def __init__(self):
@@ -25,7 +27,11 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         self.show()
 
         self.filenameToLink = dict()
-        self.imgur_uploader = Imgur_Uploader()    
+        self.imgur_uploader = Imgur_Uploader()
+        self.backend = Backend()
+        self.backend_service =  self.backend.connectToDB()   
+
+        self.get_uploads()
 
     def get_uploads(self):
         """
@@ -33,7 +39,8 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         the combo box
         """
         # Replace this line with an actual function call when it is implemented
-        self.filenameToLink = SomeFunctionThatReturnsDictOfFilesAndLinks()
+        jsonFile = self.backend.readFromDB(self.backend_service)
+        self.filenameToLink = json.loads(jsonFile)
         # Add the filenames to the combobox
         self.uploaded_combo.addItems(self.filenameToLink.keys())
 
@@ -72,7 +79,15 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
 
             result = self.imgur_uploader.upload_image(fileName)
             self.filenameToLink[smallName] = result['id']
-            print 'Image upload: ', result
+            # print 'Image upload: ', result
+
+            self.backend.addToDB('Image', smallName, result['id'], self.backend_service)
+
+            msgBox = QMessageBox()
+            msgBox.setText("File uploaded.")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.setDefaultButton(QMessageBox.Ok)
+            ret = msgBox.exec_()
             return
 
         if not (fileName and description and title):
@@ -96,7 +111,7 @@ class UnlimitedUi(QWidget, Ui_Unlimited):
         smallName = fileName.split('/')[-1]
         self.uploaded_combo.addItem(smallName)
         self.filenameToLink[smallName] =  r'https://www.youtube.com/watch?v=' + videoUrl
-
+        self.backend.addToDB('Video', smallName, r'https://www.youtube.com/watch?v=' + videoUrl, self.backend_service)
         # Upload link and filename to the google doc
 
     def browse_file(self):

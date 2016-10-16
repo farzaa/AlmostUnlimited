@@ -53,6 +53,7 @@ class Backend:
                 return_json[row[1]] = row[2]
         json_data = json.dumps(return_json);
         print(json_data)
+        return json_data
 
 
 
@@ -84,6 +85,10 @@ class Backend:
         Returns:
             Credentials, the obtained credential.
         """
+        CLIENT_SECRET_FILE = 'client_sheets.json'
+        SCOPES = 'https://www.googleapis.com/auth/drive'
+        APPLICATION_NAME = 'Google Sheets API Python Quickstart'
+
         home_dir = os.path.expanduser('~')
         credential_dir = os.path.join(home_dir, '.credentials')
         if not os.path.exists(credential_dir):
@@ -97,6 +102,13 @@ class Backend:
             print("HEYYYYYY")
             flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
             flow.user_agent = APPLICATION_NAME
+
+            try:
+                import argparse
+                flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+            except ImportError:
+                flags = None
+
             if flags:
                 credentials = tools.run_flow(flow, store, flags)
             else: # Needed only for compatibility with Python 2.6
