@@ -47,11 +47,6 @@ class Backend:
         if not values:
             print('No data found.')     
                
-        else:
-            for row in values:
-                if()
-                # Print columns A and E, which correspond to indices 0 and 4.
-                print('%s, %s, %s' % (row[0], row[1], row[2]))
 
     def printDB(self, service):
 
