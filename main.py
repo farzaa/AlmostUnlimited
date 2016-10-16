@@ -11,12 +11,11 @@ def outputMenu():
     print("Type DOWN to download a video that has already been uploaded to our cloud\n")
     print("Type QUIT to quit\n")
 
- 
 if __name__ == '__main__':
     quitMenu = False
     outputMenu()
-    input = raw_input('INPUT HERE:\n')
-    print(input)
+    #input = raw_input('INPUT HERE:\n')
+    #print(input)
     while(not quitMenu):
         input = raw_input('INPUT HERE:\n')
 
@@ -24,12 +23,13 @@ if __name__ == '__main__':
             #Run API upload methods 
             print('Upload Tool...\n')	
             upload(requestUserData())
-        if input in 'DOWN':
+
+        elif input in 'DOWN':
             #Run download 
             print('Download Tool...\n')
 
-        if input in 'QUIT': 
-        	quitMenu = True;
+        elif input in 'QUIT': 
+        	quitMenu = True
         	
     outputMenu()
 
