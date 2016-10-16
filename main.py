@@ -116,6 +116,11 @@ def outputMenu():
     print 'Type CLEAR to clear saved videos\n'
 
 if __name__ == '__main__':
+    #db = Backend()
+    #db.init
+
+    #sys.exit(app.exec_())
+
     app = QtGui.QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet())
     unlimited_ui = UnlimitedUi()
