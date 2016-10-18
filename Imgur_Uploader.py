@@ -4,8 +4,8 @@ import uuid
 
 class Imgur_Uploader(object):
     def __init__(self):
-        client_id = 'b0bf6da0d2a7e8b'
-        client_secret = '9a5fd6c74839a7a863e52868729b7ae4d8eb5223'
+        client_id = 'YOUR-CLIENT-ID'
+        client_secret = 'YOUR-CLIENT-SECRET'
 
         self.client = ImgurClient(client_id, client_secret)
         
