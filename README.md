@@ -21,6 +21,6 @@ as the Imgur_Uploader.py file
 
 Enjoy
 ___
-Farzain Majeed
+[Farzain Majeed](https://github.com/farzaa)
 
-Richie Wales
+[Richie Wales](https://github.com/richardwales2820)
