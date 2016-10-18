@@ -20,3 +20,7 @@ Generate your own API keys and replace them in the client_secret .json files, as
 as the Imgur_Uploader.py file
 
 Enjoy
+___
+Farzain Majeed
+
+Richie Wales
