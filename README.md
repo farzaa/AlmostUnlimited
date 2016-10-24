@@ -1,6 +1,6 @@
 # Almost Unlimited 
 
-A Python based desktop application that uses a loophole in the Google terms of service to allow users of the app to upload an “Almost Unlimited” amounts of video, audio, and images. The app also allows users to download back whatever they uploaded by communicating with the backend, which is built using Google Spreadsheets because it’s free, and being clever is cool. 
+A Python based desktop application that uses a loophole in the Google terms of service to allow users of the app to upload an “Almost Unlimited” amounts of video, audio, and images. The app also allows users to download back whatever they uploaded by communicating with the backend, which is custom built using Google Spreadsheets because it’s free, and being clever is cool. 
 
 Install our endless list of dependencies:
 
