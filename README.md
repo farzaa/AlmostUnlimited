@@ -1,7 +1,6 @@
-# Almost Unlimited Storage
+# Almost Unlimited 
 
-Video files are uploaded to YouTube through the YouTube API, and images through Imgur's API. YouTube offers
-almost unlimited storage (625 videos per day). Imgur boasts a daily cap of 1,250 images.
+A Python based desktop application that uses a loophole in the Google terms of service to allow users of the app to upload an “Almost Unlimited” amounts of video, audio, and images. The app also allows users to download back whatever they uploaded by communicating with the backend, which is built using Google Spreadsheets because it’s free, and being clever is cool. 
 
 Install our endless list of dependencies:
 
